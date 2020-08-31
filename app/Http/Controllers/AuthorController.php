@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Book;
 
-class BookController extends Controller
+class AuthorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class BookController extends Controller
     public function index()
     {
         //
-        return Book::get();
+        return author::get();
     }
 
     /**
@@ -37,12 +36,13 @@ class BookController extends Controller
     public function store(Request $request)
     {
         //
-        return Book::create([
-            "title" => $request->input('title'),
-            "description" => $request ->input('description'),
-            "author" => $request ->input('author'),
-            "publisher" => $request ->input('publisher'),
-            "date_of_issue" => $request ->input('date_of_issue')
+        return author::create([
+            "name" => $request->name,
+            "date_of_birth" => $request->date_of_birth,
+            "place_of_birth" => $request->place_of_birth,
+            "gender" => $request->gender,
+            "email" => $request->email,
+            "hp" => $request->hp,
         ]);
     }
 
@@ -55,7 +55,6 @@ class BookController extends Controller
     public function show($id)
     {
         //
-        return Book::find($id);
     }
 
     /**
@@ -78,12 +77,14 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return Book::find($id)->update([
-            "title" => $request->input('title'),
-            "description" => $request ->input('description'),
-            "author" => $request ->input('author'),
-            "publisher" => $request ->input('publisher'),
-            "date_of_issue" => $request ->input('date_of_issue')
+        //
+        return author::whereId($id)->update([
+            "name" => $request->name,
+            "date_of_birth" => $request->date_of_birth,
+            "place_of_birth" => $request->place_of_birth,
+            "gender" => $request->gender,
+            "email" => $request->email,
+            "hp" => $request->hp,
         ]);
     }
 
@@ -96,7 +97,6 @@ class BookController extends Controller
     public function destroy($id)
     {
         //
-        $buku = Book::find($id);
-        $buku->delete();
+        return author::destroy($id);
     }
 }
